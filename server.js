@@ -16,6 +16,19 @@
  	return new Promise((resolve, reject) => {
  		server = app.listen(port, () =>{
  			console.log(`your app is listening on port ${port}`)
+ 			resolve();
+ 		});
+ 		.on('error', err=>{
+ 			resolve(err);
+ 		});
+ 	});
+ }
+
+  function runServer(){
+ 	const port = process.env.PORT || 8080;
+ 	return new Promise((resolve, reject) => {
+ 		server = app.listen(port, () =>{
+ 			console.log(`your app is listening on port ${port}`)
  			resolve(server);
  		});
  		.on('error', err=>{

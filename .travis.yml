@@ -1,2 +1,10 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: n6rBJ+RhIQO8DWaoURy0Y/IJHFsRusHekc3ufKWbZUbWpVrpSSbqy2l8jfmwU/hzoMO6sNtLA9i+1otLaQNudIiMHHtb4Wj8E0QzCOlvX9IUvEatjGpNay7GISV83pG35V3K7ViDEI864ZT+Zo5rHC642jWVdLxgszi5HuXJPQJBc4J3zF9fgKtOajd2zCf+p3b1n/jEqG9aLZ54acrJTLA0rpPnEq2d8ntJ4WfV/EE/OJJdloNSqV5EkCr5XXlV2tzfFysdgZwadINq+9eG4M517epvQshTG5wbL3xkH16h019sbYLmGnEccyycEPlgapJcmGzu7o6r1mGdOYWIGs874PsjOS/9e9VnLrzLyJGoY+dFz/uUgFQqo0WybX2fLxXiXZQXH3Ex6qApwo+qre8cpycPrwfWTdQR0dpUmhDSRdzNmW800e7udzSKoOpI5m3j7KatIwl7YVgvTIoMMHN6MvZUGh9hdCfaUQjqTtYuKjCA0VTJGvY/FV2KvF4FmGHJ0HezCuS/dHNNATqwAYmJMvAAizdgTNfZY5FIr6x7DYqDqx5Fus4Kz2akycmyIeHwY8RT/dzDl2VBdbLe+QfSQR/iWgMYaUjwoaNGsK5PwP/s3t3nsfFDqf4an/0yH8x4cSBC7xYOpciY5eeHgpIGR2ztcwXap+WpvgkfarI=
+  app: travelMapPinBoard
+  on:
+    repo: talta/travelMapPinBoard
+    branch: staging

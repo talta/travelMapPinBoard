@@ -29,7 +29,6 @@ describe('locations severed', function(){
 		.get('/')
 		.end(function(err, res){
 			res.should.have.status(200);
-			res.should.be.html;
 			res.body.length.should.be.at.least(1);
 			res.body.should.be.a('object');
 			const expectedKeys = ["city-country", "latitude", "longitude", "notes"];

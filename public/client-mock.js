@@ -32,3 +32,34 @@ const Mock_Locations_Data ={
 		}
 	]
 }
+
+///test function, will be removed later
+function getAllPins(callbackFn){
+	setTimeout(function(){callbackFn(Mock_Locations_Data)}, 100);
+}
+
+function displayPins(data){
+	for(index in data.locations){
+		////create a marker either by a function
+		//marker = new google.maps.Marker({
+			///some kind of repl to store the latitiude and longitude easier
+			//position: data.locations.location.latitude +", "+ data.locations.location.longitude,
+			////map should be a variable
+			//map: map,
+			//icon should be determined, or just set to basic marker image
+			//icon: icon
+			//});
+			$('body').append(
+     	   '<p>' + data.statusUpdates[index].text + '</p>');
+		}
+}
+
+
+function getAndDisplayPins(){
+	getAllPins(displayPins);
+}
+
+$(function(){
+	getAndDisplayPins();
+})
+

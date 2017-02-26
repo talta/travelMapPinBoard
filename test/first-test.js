@@ -11,7 +11,17 @@ const {app, runServer, closeServer} = require('../server.js');
 chai.use(chaiHttp);
 
 describe('exists', function(){
-	it('should have a server.js file in order to operate');
+	it('should have a index.html file in order to operate', function(done){
+		chai.request(app)
+		.get('/')
+		.end(function(err, res){
+			res.should.have.status(200);
+			res.should.be.html;
+			done()
+		});
+
+	});
+
 });
 
 

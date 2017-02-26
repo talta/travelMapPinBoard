@@ -1,5 +1,5 @@
-const Mock_Locations_Data ={
-	"locations" = [
+const Mock_Locations_Data = {
+	"locations": [
 		{
 			"city-country": "Rome, Italy",
 			"latitude":"41.9028",
@@ -31,7 +31,7 @@ const Mock_Locations_Data ={
 			"notes":"I went here to study abroad in high school.  absolutely beautiful.  Fashion capital, good food and tons of culture."
 		}
 	]
-}
+};
 
 ///test function, will be removed later
 function getAllPins(callbackFn){
@@ -49,9 +49,8 @@ function displayPins(data){
 			//icon should be determined, or just set to basic marker image
 			//icon: icon
 			//});
-			$('body').append(
-     	   '<p>' + data.statusUpdates[index].text + '</p>');
-		}
+			$('body').append('<p>' + data.locations[index].latitude + '</p>');
+	}
 }
 
 
@@ -59,7 +58,7 @@ function getAndDisplayPins(){
 	getAllPins(displayPins);
 }
 
-$(function(){
+$(document).ready(function(){
 	getAndDisplayPins();
-})
+});
 

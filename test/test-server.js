@@ -35,7 +35,7 @@ describe('Pins', function(){
 			res.body.forEach(function(pin){
 				item.should.be.a('object');
 				item.should.have.all.keys(
-					'id', 'latitude', 'longitude', 'notes'
+					'id', 'address', 'latitude', 'longitude', 'notes'
 					)
 			});
 		});
@@ -49,7 +49,7 @@ describe('Pins', function(){
 			res.should.have.status(200);
 			// res.body.length.should.be.at.least(1);
 			res.body.should.be.a('object');
-			const expectedKeys = ["city-country", "latitude", "longitude", "notes"];
+			const expectedKeys = ["address", "latitude", "longitude", "notes"];
 			res.body.forEach(function(item){
 				item.should.be.a('number');
 				item.should.include.keys(expectedKeys);
@@ -65,7 +65,7 @@ describe('Pins', function(){
 		res.should.have.status(201);
 		res.body.should.be.a('object');
 		res.body.should.be.json;
-		const expectedKeys = ["city-country", "latitude", "longitude", "notes"];
+		const expectedKeys = ["address", "latitude", "longitude", "notes"];
 		res.body.forEach(function(item){
 			item.should.be.a('object');
 			item.should.include.keys(expectedKeys);
@@ -73,7 +73,7 @@ describe('Pins', function(){
 	});
 
 	it('should create a new pin and store in the DB', function(){
-		const newItem = {city-country: "Seattle, WA", latitude: "47.6062", longitude: "122.3321", notes: "rock star city with great waterfronts and lots of rain.  Mentor Ric lives here."}
+		const newItem = {address: "Seattle, WA", latitude: "47.6062", longitude: "122.3321", notes: "rock star city with great waterfronts and lots of rain.  Mentor Ric lives here."}
 		chai.request(app)
 		.post('/MapPin')
 		.send(newItem)
@@ -82,7 +82,7 @@ describe('Pins', function(){
 			res.body.should.be.json;
 			res.body.should.be.a('object');
 			res.body.id.should.not.be.null;
-			res.body.should.include.keys('id', 'city-country', 'longitude', 'latitude', 'notes');
+			res.body.should.include.keys('id', 'address', 'longitude', 'latitude', 'notes');
 			res.body.should.deep.equal(Object.assign(newItem, {id: res.body.id}));
 		});
 	});

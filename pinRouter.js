@@ -7,18 +7,20 @@ const jsonParser  = bodyParser.json();
 
 const {Locations} = require('models.js');
 
-router.get('/', (req, res) => {
-	res.json(Locations.get());
+router.get('/mapLocation:userId', (req, res) => {
+	res.json(Locations.get(req.params.userId));
+	console.log(`get the location for the ${req.params.id}`);
+	re.status(201);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/mapLocation:id', (req, res) => {
 	res.json(Locations.get(req.params.id));
-	console.log(`get the pin for ${req.params.id}`);
+	console.log(`get the location for ${req.params.id}`);
 	res.status(201);
 });
 
-router.post('/MapPin', (req, res) => {
-	const requiredFields = ['address', 'latitude', 'longitude', 'notes'];
+router.post('/mapLocation', (req, res) => {
+	const requiredFields = ['address', 'latitude', 'longitude', 'notes', 'userId', 'id'];
 	for(let i=0; i< requiredFields.length; i++){
 		const field  = requiredFields[i];
 		if(!(field in req.body)){
@@ -27,12 +29,14 @@ router.post('/MapPin', (req, res) => {
 			return res.status(400).send(message);
 		}
 	}
+	///find a better way to create this model with mongoose
+	///add the userId to this model
 	const item = Locations.create(req.body.address, req.body.latitude, req.body.longitude, request.body.notes);
 	res.status(202).json(item);
 });
 
-router.put('/:id', (req,res) => {
-	const requiredFields = ['notes'];
+router.put('/mapLocation:id', (req,res) => {
+	const requiredFields = ['notes', 'latitude', 'longitude', 'id', 'userId', 'address'];
 	for(let i=0; i< requiredFields.length; i++){
 		const field  = requiredFields[i];
 		if(!(field in req.body)){
@@ -46,7 +50,7 @@ router.put('/:id', (req,res) => {
 	console.error(message);
 	return res.status(400).send(message);
 	}
-	console.log(`updating the pin with the ID of ${req.params.id}`);
+	console.log(`updating the location with the ID of ${req.params.id}`);
 	const updatedItem = Locations.update({
 		id: req.params.id,
 		notes: req.body.notes
@@ -55,9 +59,9 @@ router.put('/:id', (req,res) => {
 });
 
 
-router.delete(':id', (req, res) => {
+router.delete('/mapLocation:id', (req, res) => {
 	Locations.delete(req.params.id);
-	console.log(`pin deleted with the ID of ${req.params.id}`);
+	console.log(`location deleted with the ID of ${req.params.id}`);
 	res.status(204).end();
 });
 

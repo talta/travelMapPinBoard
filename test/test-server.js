@@ -25,8 +25,14 @@ function seedLocationsData(){
 	return Locations.insertMany(seedData);
 }
 
-function generateIDsData(){
+// function generateIDsData(){
 
+// }
+
+function generateUserIdsData(){
+	///what kind of value to store as the userID
+	///store some kind of identifier with the cookie on the client GUID
+	///create with client Javascript or JQuery
 }
 
 function generateAddressesData(){
@@ -45,7 +51,7 @@ function generateLongitudesData(){
 }
 
 function generateNotesData(){
-	const notes = ['these are the first potential set of ntoes.', 'these are notes about a great place that I would like to visit', 'these are note about a place i stayed at and it was crazy man.']
+	const notes = ['these are the first potential set of ntoes.', 'these are notes about a great place that I would like to visit', 'these are notes about a place i stayed at and it was crazy man.']
 	return notes[Math.floor(Math.random()*notes.length)];
 }
 
@@ -54,7 +60,7 @@ function generateNotesData(){
 
 
 
-describe('Pins', function(){
+describe('Locations', function(){
 	
 	before(function(){
 		return runServer();
@@ -64,10 +70,10 @@ describe('Pins', function(){
 		return closeServer();
 	});
 
-	describe('get all pins', function(){
-		it('should get list of pins on get', function(){
+	describe('get all locations for a Id', function(){
+		it('should get list of locations on get', function(){
 			return chai.request(server)
-			.get('/pins')
+			.get('/mapLocations:id')
 			.then(function(res){
 				res.should.have.status(200);
 				res.should.be.json;
@@ -75,22 +81,22 @@ describe('Pins', function(){
 				res.body.forEach(function(pin){
 					item.should.be.a('object');
 					item.should.have.all.keys(
-						'id', 'address', 'latitude', 'longitude', 'notes'
+						'id', 'address', 'latitude', 'longitude', 'notes', 'userId'
 						)
 				});
 			});
 		});
 	});
 
-	describe('get information not regarding the pins', function(){
+	describe('get information not regarding the locations', function(){
 		it('should get and display locations to the html', function(done){
 			chai.request(app)
-			.get('/')
+			.get('/mapLocations')
 			.then(function(err, res){
 				res.should.have.status(200);
 				// res.body.length.should.be.at.least(1);
 				res.body.should.be.a('object');
-				const expectedKeys = ["address", "latitude", "longitude", "notes"];
+				const expectedKeys = ["address", "latitude", "longitude", "notes", "userId", "id"];
 				res.body.forEach(function(item){
 					item.should.be.a('number');
 					item.should.include.keys(expectedKeys);
@@ -100,15 +106,15 @@ describe('Pins', function(){
 	});
 
 
-	describe('Get Pin for a specific ID', function(){
+	describe('Get Location for a specific UserId', function(){
 		it('should get a specific locations notes', function(){
 		chai.request(app)
-		.get('/:id')
-		.tehn(function(res){
+		.get('/mapLocations:userId')
+		.then(function(res){
 			res.should.have.status(201);
 			res.body.should.be.a('object');
 			res.body.should.be.json;
-			const expectedKeys = ["address", "latitude", "longitude", "notes"];
+			const expectedKeys = ["address", "latitude", "longitude", "notes", "userId", "id"];
 			res.body.forEach(function(item){
 				item.should.be.a('object');
 				item.should.include.keys(expectedKeys);
@@ -116,18 +122,18 @@ describe('Pins', function(){
 		});
 	});
 
-	describe('POST a new pin', function(){
-		it('should create a new pin and store in the DB', function(){
+	describe('POST a new location', function(){
+		it('should create a new location and store in the DB', function(){
 			const newItem = {address: "Seattle, WA", latitude: "47.6062", longitude: "122.3321", notes: "rock star city with great waterfronts and lots of rain.  Mentor Ric lives here."}
 			chai.request(app)
-			.post('/MapPin')
+			.post('/mapLocations')
 			.send(newItem)
 			.then(function(res){
 				res.should.have.status(202);
 				res.body.should.be.json;
 				res.body.should.be.a('object');
 				res.body.id.should.not.be.null;
-				res.body.should.include.keys('id', 'address', 'longitude', 'latitude', 'notes');
+				res.body.should.include.keys('id', 'address', 'longitude', 'latitude', 'notes', 'userId');
 				res.body.should.deep.equal(Object.assign(newItem, {id: res.body.id}));
 			});
 		});

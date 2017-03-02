@@ -9,10 +9,11 @@ function storageException(message){
 }
 
 const Locations = {
-	create: function(latitude, longitude, address){
+	create: function(latitude, longitude, address, userId, notes, id){
 		console.log(`creating a location ${address}`);
 		const location = {
 			id: uuid.v4(),
+			userId: uuid.v2(),
 			address: address,
 			latitude: latitude,
 			longitude: longitude,
@@ -21,43 +22,51 @@ const Locations = {
 		this.Locations.push(location);
 		return location;
 	},
-
-	get: function(id){
-		console.log(`getting a specific location for the id ${id}`);
-		if(id !== null){
+	get: function(userId){
+		console.log(`getting a specific location for the UserId ${userId}`);
+		if(userId !== null){
 			return this.Locations.find(location => location.id === id);
 		}
 		return this.Locations
 	},
-
-	update: function(updatedItem){
+	get:function(id){
+		console.log(`getting a specific location for the id ${id}`);
+		if(userId !==null){
+			return this.Locations.find(location => location.id ===id);
+		}
+		return this.Locations
+	}
+	update: function(updatedItem, userId){
 		console.log(`updating the location with an id of ${updatedItem.id}`);
+				///add validation for userId
 		const {id} = updatedItem;
-		const pinIndex = this.Locations.findIndex(
-			pin => pin.id ===updatedItem.id);
-		if( pinIndex === -1){
+		const locationIndex = this.Locations.findIndex(
+			location => location.id ===updatedItem.id);
+		if( locationIndex === -1){
 			throw storageException(
 				`Can't update item \'${updateItem.id}\' becuase it doesn't exist.`)
 		}
-		this.Locations[pinIndex] = Object.assign(
-			this.Locations[pinIndex], updatedItem);
-		return this.Locations[pinIndex];
+		this.Locations[locationIndex] = Object.assign(
+			this.Locations[locationIndex], updatedItem);
+		return this.Locations[locationIndex];
 	},
-	delete: function(id){
+	delete: function(id, userId){
 		console.log(`deletsing the location with an id of \'${id}\'`);
-		const pinIndex = this.Locations.findIndex(
-			pin => pin.id ===updatedItem.id);
-		if(pinIndex > -1){
-			this.Locations.splice(pinIndex, 1);
+		
+		///add validation for userId
+		const locationIndex = this.Locations.findIndex(
+			location => location.id ===updatedItem.id);
+		if(locationIndex > -1){
+			this.Locations.splice(locationIndex, 1);
 		}
 	}
 };
 
-
-function createPinsModel(){
+///potentially do not need
+function createLocationsModel(){
 	const storage = Object.create(Locations);
-	storage.pins = [];
+	storage.Locations = [];
 	return storage;
 };
 
-module.exports = {Locations: createPinsModel()};
+module.exports = {Locations: createLocationsModel()};

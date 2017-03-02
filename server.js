@@ -3,49 +3,51 @@
 
  const express  = require('express');
  const app = express();
+ const {PORT, DATABASE_URL} = require('../config.js')
+
+ mongoose.Promise = global.Promise;
+
 
  app.use(express.static('public'));
- app.listen(process.env.PORT || 8080);
 
+app.use('*', function(req, res){
+	res.status(404).json({message: 'Not Found'});
+})
 
 
  let server;
 
- function runServer(){
- 	const port = process.env.PORT || 8080;
+ function runServer(databaseUrl = DATABASE_URL, port = PORT){
  	return new Promise((resolve, reject) => {
- 		server = app.listen(port, () =>{
+ 		mongoose.connect(databaseUrl, err =>{
+ 			if(err){
+ 				return reject(err);
+ 			}
+ 			server = app.listen(port, () =>{
  			console.log(`your app is listening on port ${port}`)
  			resolve();
- 		});
- 		.on('error', err => {
- 			reject(err);
+ 			});
+ 			.on('error', err => {
+ 				mongoose.disconnect();
+ 				reject(err);
+ 			});
  		});
  	});
  }
 
-  function runServer(){
- 	const port = process.env.PORT || 8080;
- 	return new Promise((resolve, reject) => {
- 		server = app.listen(port, () =>{
- 			console.log(`your app is listening on port ${port}`)
- 			resolve(server);
- 		});
- 		.on('error', err => {
- 			reject(err);
- 		});
- 	});
- }
+
 
 function closeServer(){
-	return new Promise((esolve, reject){
-		console.log('closing server');
-		server.close(err =>{
-			if(err){
-				reject(err);
-				return;
-			}
-			resolve();
+	return mongoose.disconnect().then(() => {
+		return new Promise((resolve, reject){
+			console.log('closing server');
+			server.close(err =>{
+				if(err){
+					reject(err);
+					return;
+				}
+				resolve();
+			});
 		});
 	});
 }

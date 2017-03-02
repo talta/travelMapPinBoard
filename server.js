@@ -24,12 +24,13 @@ app.use('*', function(req, res){
  				return reject(err);
  			}
  			server = app.listen(port, () =>{
- 			console.log(`your app is listening on port ${port}`)
- 			resolve();
+ 				console.log(`your app is listening on port ${port}`)
+ 				resolve();
  			});
  			.on('error', err => {
  				mongoose.disconnect();
  				reject(err);
+ 				console.error(DATABASE_URL + PORT);
  			});
  		});
  	});

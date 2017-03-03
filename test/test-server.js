@@ -62,7 +62,7 @@ function generateLocationsData(){
 	return {
 		userId: generateUserIdsData(),
 		address: generateAddressesData(),
-		latitude: generateLatitudesData();
+		latitude: generateLatitudesData(),
 		longitude: generateLongitudesData(),
 		notes: generateNotesData()
 	}

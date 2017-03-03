@@ -171,7 +171,7 @@ describe('Locations', function(){
 			const updateData = {
 				notes: 'these would be updated notes'
 			};
-			return chai.request(app);
+			return chai.request(app)
 
 			.get(`/mapLocation/${res.body[0].id}`)
 			.then(function(res){

@@ -99,7 +99,7 @@ describe('Locations', function(){
 	describe('get all locations for a Id', function(){
 		it('should get list of locations on get', function(){
 			return chai.request(server)
-			.get('/mapLocations:id')
+			.get('/mapLocation/id')
 			.then(function(res){
 				res.should.have.status(200);
 				res.should.be.json;
@@ -117,7 +117,7 @@ describe('Locations', function(){
 	describe('get information not regarding the locations', function(){
 		it('should get and display locations to the html', function(done){
 			chai.request(app)
-			.get('/mapLocations')
+			.get('/mapLocations/userId')
 			.then(function(err, res){
 				res.should.have.status(200);
 				// res.body.length.should.be.at.least(1);
@@ -135,7 +135,7 @@ describe('Locations', function(){
 	describe('Get Location for a specific UserId', function(){
 		it('should get a specific locations notes', function(){
 		chai.request(app)
-		.get('/mapLocations:userId')
+		.get('/mapLocations/userId')
 		.then(function(res){
 			res.should.have.status(201);
 			res.body.should.be.a('object');
@@ -152,7 +152,7 @@ describe('Locations', function(){
 		it('should create a new location and store in the DB', function(){
 			const newItem = {address: "Seattle, WA", latitude: "47.6062", longitude: "122.3321", notes: "rock star city with great waterfronts and lots of rain.  Mentor Ric lives here."}
 			chai.request(app)
-			.post('/mapLocations')
+			.post('/mapLocation')
 			.send(newItem)
 			.then(function(res){
 				res.should.have.status(202);
@@ -173,11 +173,11 @@ describe('Locations', function(){
 			};
 			return chai.request(app);
 
-			.get('/')
+			.get(`/mapLocation/${res.body[0].id}`)
 			.then(function(res){
 				updateData.id = res.body[0].id
 				return chai.request(app);
-				.put(`/${updateData.id}`)
+				.put(`/mapLocation/${updateData.id}`)
 				.send(updateData)
 			});
 			.then(function(res){
@@ -193,10 +193,10 @@ describe('Locations', function(){
 	describe('DELETE should remove the ID and references from the DB', function(){
 		it('should delete the requested ID', function(){
 			return chai.request(app)
-			.get('/')
+			.get(`/mapLocation/${res.body[0].id}`)
 			.then(function(res){
 				return chai.request(app)
-				.delete(`/${res.body[0].id}`)
+				.delete(`/mapLocation/${res.body[0].id}`)
 			});
 			.then(function(res){
 				res.should.have.status(204);

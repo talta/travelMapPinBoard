@@ -66,7 +66,7 @@ function generateLocationsData(){
 		longitude: generateLongitudesData(),
 		notes: generateNotesData()
 	}
-}
+};
 
 function tearDownDb(){
 	console.warn('deleting database');
@@ -134,16 +134,17 @@ describe('Locations', function(){
 
 	describe('Get Location for a specific UserId', function(){
 		it('should get a specific locations notes', function(){
-		chai.request(app)
-		.get('/mapLocations/userId')
-		.then(function(res){
-			res.should.have.status(201);
-			res.body.should.be.a('object');
-			res.body.should.be.json;
-			const expectedKeys = ["address", "latitude", "longitude", "notes", "userId", "id"];
-			res.body.forEach(function(item){
-				item.should.be.a('object');
-				item.should.include.keys(expectedKeys);
+			chai.request(app)
+			.get('/mapLocations/userId')
+			.then(function(res){
+				res.should.have.status(201);
+				res.body.should.be.a('object');
+				res.body.should.be.json;
+				const expectedKeys = ["address", "latitude", "longitude", "notes", "userId", "id"];
+				res.body.forEach(function(item){
+					item.should.be.a('object');
+					item.should.include.keys(expectedKeys);
+				});
 			});
 		});
 	});
@@ -204,6 +205,7 @@ describe('Locations', function(){
 		});
 	});
 });
+
 
 
 

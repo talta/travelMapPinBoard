@@ -37,7 +37,8 @@ const Locations = {
 		}
 		return this.Locations
 	}
-	update: function(updatedItem, userId){
+	///removed the userId for now, but should have as a parameter
+	update: function(updatedItem){
 		console.log(`updating the location with an id of ${updatedItem.id}`);
 				///add validation for userId
 		const {id} = updatedItem;
@@ -51,7 +52,8 @@ const Locations = {
 			this.Locations[locationIndex], updatedItem);
 		return this.Locations[locationIndex];
 	},
-	delete: function(id, userId){
+	///removed the userId request parameter for now, should have in the future
+	delete: function(id){
 		console.log(`deleting the location with an id of \'${id}\'`);
 		
 		///add validation for userId

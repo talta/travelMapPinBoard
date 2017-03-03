@@ -176,10 +176,10 @@ describe('Locations', function(){
 			.get(`/mapLocation/${res.body[0].id}`)
 			.then(function(res){
 				updateData.id = res.body[0].id
-				return chai.request(app);
+				return chai.request(app)
 				.put(`/mapLocation/${updateData.id}`)
 				.send(updateData)
-			});
+			})
 			.then(function(res){
 				res.should.have.status(203);
 				res.body.should.be.a('object');
@@ -197,7 +197,7 @@ describe('Locations', function(){
 			.then(function(res){
 				return chai.request(app)
 				.delete(`/mapLocation/${res.body[0].id}`)
-			});
+			})
 			.then(function(res){
 				res.should.have.status(204);
 			});

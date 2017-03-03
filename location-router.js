@@ -9,7 +9,7 @@ const jsonParser  = bodyParser.json();
 
 const {Locations} = require('./models.js');
 
-router.get('/mapLocation/:userId', (req, res) => {
+router.get('/mapLocations/:userId', (req, res) => {
 	res.json(Locations.get(req.params.userId));
 	console.log(`get the location for the ${req.params.id}`);
 	res.status(201);

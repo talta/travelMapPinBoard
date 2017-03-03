@@ -23,7 +23,7 @@ function seedLocationsData(){
 		seedData.push(generateLocationsData());
 	}
 	return Locations.insertMany(seedData);
-}
+};
 
 // function generateIDsData(){
 
@@ -35,27 +35,27 @@ function generateUserIdsData(){
 	///create with client Javascript or JQuery
 	const userIds = ['1234', '3456', '5677', '0988'];
 	return userIds[Math.floor(Math.random()*userIds.length)];
-}
+};
 
 function generateAddressesData(){
 	const addresses = ['Rome, Italy', 'Barcelona, Spain', 'Bangkok, Thailand', 'Buenos Aires, Argentina'];
 	return addresses[Math.floor(Math.random()*addresses.length)];
-}
+};
 
 function generateLatitudesData(){
 	const latitudes = ['12.496366', '41.385064', '13.756331', '-34.603684' ];
 	return latitudes[Math.floor(Math.random()*latitudes.length)];
-}
+};
 
 function generateLongitudesData(){
 	const longitudes  = ['41.902783', '2.173403', '100.501765', '-58.381559'];
 	return longitudes[Math.floor(Math.random()*longitudes.length)];
-}
+};
 
 function generateNotesData(){
 	const notes = ['these are the first potential set of ntoes.', 'these are notes about a great place that I would like to visit', 'these are notes about a place i stayed at and it was crazy man.']
 	return notes[Math.floor(Math.random()*notes.length)];
-}
+};
 
 
 function generateLocationsData(){

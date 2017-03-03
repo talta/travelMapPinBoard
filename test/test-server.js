@@ -6,9 +6,10 @@ const faker = require('faker');
 const mongoose = require('mongoose');
 
 const should = require('chai').should();
-//const exists = require('../server.js');
+
 const {Locations}  = require('../models.js');
 const {app, runServer, closeServer} = require('../server.js');
+const {TEST_DATABASE_URL} = require('../config.js');
 ///maybe a test db now:
 
 
@@ -25,9 +26,10 @@ function seedLocationsData(){
 	return Locations.insertMany(seedData);
 };
 
-// function generateIDsData(){
-
-// }
+function generateIDsData(){
+	const ids = ['5ff54712-eb17-430b-8410-793e4dd202b0', '5ff54712-eb17-430b-8410-793e4dd202b2', '5ff54712-eb17-430b-8410-793e4dd202b3', '5ff54712-eb17-430b-8410-793e4dd202b4'];
+	return ids[Math.floor(Math.random()*ids.length)];
+}
 
 function generateUserIdsData(){
 	///what kind of value to store as the userID
@@ -60,6 +62,7 @@ function generateNotesData(){
 
 function generateLocationsData(){
 	return {
+		id: generateIdsData(),
 		userId: generateUserIdsData(),
 		address: generateAddressesData(),
 		latitude: generateLatitudesData(),
@@ -80,7 +83,7 @@ function tearDownDb(){
 describe('Locations', function(){
 	
 	before(function(){
-		return runServer();
+		return runServer(TEST_DATABASE_URL);
 	});
 
 	beforeEach(function(){

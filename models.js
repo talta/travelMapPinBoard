@@ -36,7 +36,7 @@ const Locations = {
 			return this.Locations.find(location => location.id ===id);
 		}
 		return this.Locations
-	}
+	},
 	///removed the userId for now, but should have as a parameter
 	update: function(updatedItem){
 		console.log(`updating the location with an id of ${updatedItem.id}`);

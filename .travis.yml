@@ -9,4 +9,4 @@ deploy:
   app: floating-oasis-19525
   on:
     repo: talta/travelMapPinBoard
-    branch: staging
+    branch: master

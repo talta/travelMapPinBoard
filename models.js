@@ -1,5 +1,6 @@
 const uuid = require('uuid');
 const mongoose = require('mongoose');
+const express = require('express');
 
 
 
@@ -51,7 +52,7 @@ const Locations = {
 		return this.Locations[locationIndex];
 	},
 	delete: function(id, userId){
-		console.log(`deletsing the location with an id of \'${id}\'`);
+		console.log(`deleting the location with an id of \'${id}\'`);
 		
 		///add validation for userId
 		const locationIndex = this.Locations.findIndex(

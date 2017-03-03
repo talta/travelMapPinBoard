@@ -1,19 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
+
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const jsonParser  = bodyParser.json();
 
 
-const {Locations} = require('models.js');
+const {Locations} = require('./models.js');
 
-router.get('/mapLocation:userId', (req, res) => {
+router.get('/mapLocation/:userId', (req, res) => {
 	res.json(Locations.get(req.params.userId));
 	console.log(`get the location for the ${req.params.id}`);
-	re.status(201);
+	res.status(201);
 });
 
-router.get('/mapLocation:id', (req, res) => {
+router.get('/mapLocation/:id', (req, res) => {
 	res.json(Locations.get(req.params.id));
 	console.log(`get the location for ${req.params.id}`);
 	res.status(201);
@@ -35,7 +37,7 @@ router.post('/mapLocation', (req, res) => {
 	res.status(202).json(item);
 });
 
-router.put('/mapLocation:id', (req,res) => {
+router.put('/mapLocation/:id', (req, res) => {
 	const requiredFields = ['notes', 'latitude', 'longitude', 'id', 'userId', 'address'];
 	for(let i=0; i< requiredFields.length; i++){
 		const field  = requiredFields[i];
@@ -59,11 +61,11 @@ router.put('/mapLocation:id', (req,res) => {
 });
 
 
-router.delete('/mapLocation:id', (req, res) => {
+router.delete('/mapLocation/:id', (req, res) => {
 	Locations.delete(req.params.id);
 	console.log(`location deleted with the ID of ${req.params.id}`);
 	res.status(204).end();
 });
 
 
-module.exports = router;
+module.exports = {router};

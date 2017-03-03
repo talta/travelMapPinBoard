@@ -33,6 +33,8 @@ function generateUserIdsData(){
 	///what kind of value to store as the userID
 	///store some kind of identifier with the cookie on the client GUID
 	///create with client Javascript or JQuery
+	const userIds = ['1234', '3456', '5677', '0988'];
+	return userIds[Math.floor(Math.random()*userIds.length)];
 }
 
 function generateAddressesData(){
@@ -56,6 +58,21 @@ function generateNotesData(){
 }
 
 
+function generateLocationsData(){
+	return {
+		userId: generateUserIdsData(),
+		address: generateAddressesData(),
+		latitude: generateLatitudesData();
+		longitude: generateLongitudesData(),
+		notes: generateNotesData()
+	}
+}
+
+function tearDownDb(){
+	console.warn('deleting database');
+	return mongoose.connection.dropDatabase();
+};
+
 
 
 
@@ -65,6 +82,15 @@ describe('Locations', function(){
 	before(function(){
 		return runServer();
 	});
+
+	beforeEach(function(){
+		return seedLocationsData();
+	});
+
+	afterEach(function(){
+		return tearDownDb();
+	});
+
 
 	after(function(){
 		return closeServer();

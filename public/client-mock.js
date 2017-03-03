@@ -34,11 +34,11 @@ const Mock_Locations_Data = {
 };
 
 ///test function, will be removed later
-function getAllPins(callbackFn){
+function getAllLocations(callbackFn){
 	setTimeout(function(){callbackFn(Mock_Locations_Data)}, 100);
 }
 
-function displayPins(data){
+function displayLocations(data){
 	for(index in data.locations){
 		////create a marker either by a function
 		//marker = new google.maps.Marker({
@@ -54,11 +54,11 @@ function displayPins(data){
 }
 
 
-function getAndDisplayPins(){
-	getAllPins(displayPins);
+function getAndDisplayLocations(){
+	getAllLocations(displayLocations);
 }
 
 $(document).ready(function(){
-	getAndDisplayPins();
+	getAndDisplayLocations();
 });
 

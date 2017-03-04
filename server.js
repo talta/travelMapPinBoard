@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
  const express  = require('express');
  const mongoose = require('mongoose');
  const app = express();
- const {PORT, DATABASE_URL} = require('./config.js')
+ const {PORT, DATABASE_URL} = require('./config.js');
+ const {router} = require('./location-router.js');
 
  mongoose.Promise = global.Promise;
 

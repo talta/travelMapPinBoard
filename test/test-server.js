@@ -25,9 +25,10 @@ function seedLocationsData(){
 	return Locations.insertMany(seedData);
 };
 
-// function generateIDsData(){
-
-// }
+function generateIDsData(){
+ 	const ids = ['5ff54712-eb17-430b-8410-793e4dd202b0', '5ff54712-eb17-430b-8410-793e4dd202b2', '5ff54712-eb17-430b-8410-793e4dd202b1', '5ff54712-eb17-430b-8410-793e4dd202b3'];
+ 	return ids[Math.floors(Math.random()*ids.length)];
+}
 
 function generateUserIdsData(){
 	///what kind of value to store as the userID

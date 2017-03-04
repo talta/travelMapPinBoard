@@ -1,12 +1,12 @@
 const uuid = require('uuid');
 const mongoose = require('mongoose');
 const express = require('express');
-
+var Schema = mongoose.Schema;
 
 
 ////use mongoose models:
 const LocationsSchema = mongoose.Schema({
-	id: {type: ObjectId, required: true},
+	id: {type: Schema.ObjectId, required: true},
 	userId: {type: String, required: true},
 	address: {type: String},
 	latitude: {type: String},
@@ -30,8 +30,8 @@ LocationsSchema.methods.apiRepr = function(){
 	};
 }
 
-const Location  = mongoode.model('Locations', LocationsSchema);
+const Location  = mongoose.model('Location', LocationsSchema);
 
-module.exports = {Locations};
+module.exports = {Location};
 
 

@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const jsonParser  = bodyParser.json();
 
 
-const {Locations} = require('./models.js');
+const {Location} = require('./models.js');
 
 router.get('/mapLocations/:userId', (req, res) => {
 	res.json(Locations.get(req.params.userId));
@@ -16,9 +16,10 @@ router.get('/mapLocations/:userId', (req, res) => {
 });
 
 router.get('/mapLocation/:id', (req, res) => {
-	res.json(Locations.get(req.params.id));
+	//res.json(Locations.get(req.params.id));
 	console.log(`get the location for ${req.params.id}`);
-	res.status(201);
+	
+	res.status(201).send("you, you, you");
 });
 
 router.post('/mapLocation', (req, res) => {
